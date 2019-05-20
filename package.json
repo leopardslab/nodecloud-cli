@@ -3,11 +3,27 @@
   "version": "0.0.1",
   "description": "NodeCloud CLI",
   "main": "bin/bin.js",
+  "scripts": {
+    "prettier": "pretty-quick --staged",
+    "prepublish": "npm run test"
+  },
   "repository": "https://github.com/cloudlibz/nodecloud-cli",
   "author": "CloudLibz",
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "commander": "^2.20.0"
+    "commander": "^2.20.0",
+    "prettier": "^1.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "husky": "^2.3.0",
+    "mocha": "^6.1.4",
+    "pretty-quick": "^1.11.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier"
+    }
   }
 }
