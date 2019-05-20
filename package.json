@@ -1,0 +1,13 @@
+{
+  "name": "nodecloud-cli",
+  "version": "0.0.1",
+  "description": "NodeCloud CLI",
+  "main": "bin/bin.js",
+  "repository": "https://github.com/cloudlibz/nodecloud-cli",
+  "author": "CloudLibz",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "commander": "^2.20.0"
+  }
+}
