@@ -14,9 +14,11 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
+    "detect-installed": "^2.0.4",
     "figlet": "^1.2.3",
     "inquirer": "^6.3.1",
     "node-emoji": "^1.10.0",
+    "ora": "^3.4.0",
     "prettier": "^1.17.1"
   },
   "devDependencies": {

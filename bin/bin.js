@@ -5,11 +5,14 @@ const inquirer = require("inquirer");
 const figlet = require("figlet");
 const chalk = require("chalk");
 const emoji = require("node-emoji");
+const ora = require("ora");
+const fs = require("fs");
 
 program
   .version("0.0.1", "-v, --version")
   .option("-a, --about", "View about section of  NodeCloud CLI")
   .option("-i, --init", "Add bbq sauce")
+  .option("-c, --config", "Configure")
   .parse(process.argv);
 
 if (program.about) {
@@ -54,4 +57,14 @@ if (program.init) {
     }
   ];
   inquirer.prompt(questions, doSomething);
+}
+
+if (program.config) {
+  fs.writeFile(".nc.config.js", "Hey there!", { flag: "wx" }, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log("The file was saved!");
+  });
 }
