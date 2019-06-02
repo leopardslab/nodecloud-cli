@@ -60,11 +60,22 @@ if (program.init) {
 }
 
 if (program.config) {
-  fs.writeFile(".nc.config.js", "Hey there!", { flag: "wx" }, function(err) {
+  let name = "aws";
+  let tag = "";
+  let libname = "";
+
+  let data = `const providers = [
+    {
+        name: ${name},
+        tag: ${tag},
+        libName: ${libname}
+    }
+]
+module.exports = providers;`;
+  fs.writeFile(".nc.config.js", data, { flag: "wx" }, function(err) {
     if (err) {
       return console.log(err);
     }
-
     console.log("The file was saved!");
   });
 }
