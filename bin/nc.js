@@ -2,6 +2,7 @@
 const program = require("commander");
 const figlet = require("figlet");
 const chalk = require("chalk");
+const Init = require("./init");
 
 program
   .version("0.0.1", "-v, --version")
@@ -29,4 +30,8 @@ if (program.about) {
       console.log(chalk.blue("© Copyright 2019 Cloudlibz."));
     }
   );
+}
+
+if (program.init) {
+  Init();
 }

@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
 const program = require("commander");
-const inquirer = require("inquirer");
 const figlet = require("figlet");
 const chalk = require("chalk");
-const emoji = require("node-emoji");
-const ora = require("ora");
-const fs = require("fs");
+
+const Init = require("./init");
 
 program
   .version("0.0.1", "-v, --version")
@@ -39,43 +37,5 @@ if (program.about) {
 }
 
 if (program.init) {
-  function doSomething(answers) {
-    // Do whateva you want!
-  }
-  var questions = [
-    {
-      message: "Select cloud service provider",
-      type: "list",
-      name: "providers",
-      choices: ["AWS", "GCP", "Azure", "Ali", "DigitalOcean"]
-    },
-    {
-      message: "Select region",
-      type: "list",
-      name: "providers",
-      choices: ["AWS", "GCP", "Azure", "Ali", "DigitalOcean"]
-    }
-  ];
-  inquirer.prompt(questions, doSomething);
-}
-
-if (program.config) {
-  let name = "aws";
-  let tag = "";
-  let libname = "";
-
-  let data = `const providers = [
-    {
-        name: ${name},
-        tag: ${tag},
-        libName: ${libname}
-    }
-]
-module.exports = providers;`;
-  fs.writeFile(".nc.config.js", data, { flag: "wx" }, function(err) {
-    if (err) {
-      return console.log(err);
-    }
-    console.log("The file was saved!");
-  });
+  Init();
 }
