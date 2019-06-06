@@ -7,7 +7,7 @@ const Init = require("./init");
 program
   .version("0.0.1", "-v, --version")
   .option("-a, --about", "View about section of  NodeCloud CLI")
-  .option("-i, --init", "Add bbq sauce")
+  .option("-i, --init", "Initialize provider")
   .option("-c, --config", "Configure")
   .option("c, compute", "Compute")
   .parse(process.argv);

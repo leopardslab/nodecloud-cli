@@ -2,7 +2,7 @@
   "name": "nodecloud-cli",
   "version": "0.0.1",
   "description": "NodeCloud CLI",
-  "main": "bin/bin.js",
+  "main": "bin/nc.js",
   "scripts": {
     "prettier": "pretty-quick --staged",
     "prepare": "npm run test"
