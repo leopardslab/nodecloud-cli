@@ -9,7 +9,14 @@ program
   .option("-a, --about", "View about section of  NodeCloud CLI")
   .option("-i, --init", "Initialize provider")
   .option("-c, --config", "Configure")
-  .option("c, compute", "Compute")
+  .option("-cm, --compute", "Create EC2 / Compute Engine / Virtual Machine")
+  .option("-st, --storage", "Create Storage S3 / Cloud Storage / Blob")
+  .option("-net, --network", "Create Balancers")
+  .option(
+    "-db, --database",
+    "Create Databases RDS / Cloud SQL / Azure Database"
+  )
+  .option("-au, --auth", "Create Identity and Access Management")
   .parse(process.argv);
 
 if (program.about) {

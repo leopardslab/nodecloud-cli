@@ -15,11 +15,26 @@ const questions = [
   }
 ];
 
+function installDependencies(path, cb) {
+  exec(`cd ${path} && npm install`, (error, stdout, stderr) => {
+    if (error) {
+      console.log("error", error);
+      cb(error, null);
+    }
+    cb(null, true);
+  });
+}
+
 function move(libname, path) {
   return new Promise(function(resolve, reject) {
     fs.rename(libname, `${path}\\${libname}`, function(error) {
       if (error) reject(false);
-      resolve(true);
+      installDependencies(`${path}\\${libname}`, (error, status) => {
+        if (error) {
+          reject(false);
+        }
+        resolve(true);
+      });
     });
   });
 }
@@ -57,24 +72,24 @@ function getNpmPath() {
   });
 }
 
-function installPlugin({ libname }) {
-  detectInstalled(libname).then(exists => {
+function installPlugin({ package }) {
+  detectInstalled(package).then(exists => {
     if (exists) {
-      spinner.warn(`${libname} plugin exist`);
+      spinner.warn(`${package} plugin exist`);
       return;
     }
     getNpmPath()
       .then(function(path) {
-        clonePlugin(libname, path)
+        clonePlugin(package, path)
           .then(function(path) {
-            spinner.succeed(`Successfully installed ${libname}`);
+            spinner.succeed(`Successfully installed ${package}`);
           })
           .catch(function(error) {
-            spinner.fail(`Error installing ${libname}`);
+            spinner.fail(`Error installing ${package}`);
           });
       })
       .catch(function(error) {
-        spinner.fail(`Error installing ${libname}`);
+        spinner.fail(`Error installing ${package}`);
       });
   });
 }
@@ -99,10 +114,14 @@ function witeDataToConfig(data) {
 function createConfig(providers) {
   spinner.start("Generating Configurations");
   let data = `
+   const ${providers.require} = require('${providers.package}');
+
    const providers = [
-     ${providers}
-   ]
-   module.exports = providers;`;
+     ${providers.provider}
+   ];
+   
+   module.exports = providers;
+ `;
   witeDataToConfig(data)
     .then(function(response) {
       if (response.state) {
@@ -111,7 +130,7 @@ function createConfig(providers) {
         } else {
           spinner.succeed("Configuration file generated successfully");
         }
-        installPlugin(JSON.parse(providers));
+        installPlugin(providers);
       }
     })
     .catch(function(err) {
@@ -122,44 +141,52 @@ function createConfig(providers) {
 function providerSelection({ providers }) {
   switch (providers) {
     case "AWS":
-      createConfig(
-        JSON.stringify({
-          name: "aws",
-          tag: "aws",
-          libname: "nodecloud-aws-plugin"
-        })
-      );
+      createConfig({
+        package: "nodecloud-aws-plugin",
+        require: "nodeCloudAwsPlugin",
+        provider: `{
+            name: "aws",
+            tag: "aws",
+            libName: nodeCloudAwsPlugin
+          }`
+      });
       break;
     case "GCP":
-      createConfig(
-        JSON.stringify({
-          name: "google",
-          tag: "google",
-          libname: "nodecloud-gcp-plugin",
-          configFile: {
-            projectId: "",
-            keyFilename: ""
-          }
-        })
-      );
+      createConfig({
+        package: "nodecloud-gcp-plugin",
+        require: "nodeCloudAwsPlugin",
+        provider: `{
+            name: "google",
+            tag: "google",
+            libName: nodeCloudAwsPlugin,
+            configFile: {
+              projectId: "",
+              keyFilename: ""
+            }
+          }`
+      });
       break;
     case "Azure":
-      createConfig(
-        JSON.stringify({
-          name: "Azure",
-          tag: "azure",
-          libname: "nodecloud-azure-plugin"
-        })
-      );
+      createConfig({
+        package: "nodecloud-azure-plugin",
+        require: "nodeCloudAzurePlugin",
+        provider: `{
+            name: "azure",
+            tag: "azure",
+            libName: nodeCloudAzurePlugin
+          }`
+      });
       break;
     default:
-      createConfig(
-        JSON.stringify({
-          name: "aws",
-          tag: "aws",
-          libname: "nodecloud-aws-plugin"
-        })
-      );
+      createConfig({
+        package: "nodecloud-aws-plugin",
+        require: "nodeCloudAwsPlugin",
+        provider: `{
+            name: "aws",
+            tag: "aws",
+            libName: nodeCloudAwsPlugin
+          }`
+      });
   }
 }
 
