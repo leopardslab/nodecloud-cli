@@ -4,12 +4,30 @@ const figlet = require("figlet");
 const chalk = require("chalk");
 const Init = require("./init");
 
+function range(val) {
+  return val.split("..").map(Number);
+}
+
+function list(val) {
+  return val.split(",");
+}
+
+function collect(val, memo) {
+  memo.push(val);
+  return memo;
+}
+
 program
   .version("0.0.1", "-v, --version")
   .option("-a, --about", "View about section of  NodeCloud CLI")
   .option("-i, --init", "Initialize provider")
   .option("-c, --config", "Configure")
-  .option("-cm, --compute", "Create EC2 / Compute Engine / Virtual Machine")
+  .option(
+    "-cm, --compute [value]",
+    "Create EC2 / Compute Engine / Virtual Machine",
+    collect,
+    []
+  )
   .option("-st, --storage", "Create Storage S3 / Cloud Storage / Blob")
   .option("-net, --network", "Create Balancers")
   .option(
@@ -42,3 +60,5 @@ if (program.about) {
 if (program.init) {
   Init();
 }
+
+console.log(" collect: %j", program.compute);
