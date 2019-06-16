@@ -18,6 +18,7 @@ program
   .option("-c, --compute <type>", "Compute")
   .option("-r, --region <type>", "Region")
   .option("-vn, --vm-name <type>", "VM name")
+  .option("-i, --in-id <type>", "Instance Id")
   .parse(process.argv);
 
 switch (program.compute) {
@@ -53,12 +54,52 @@ switch (program.compute) {
       });
     break;
   case "stop":
-    console.log("stop");
+    ec2
+      .stop({
+        InstanceIds: [program.inId]
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     break;
-  case "":
-    console.log("create");
+  case "start":
+    ec2
+      .start({
+        InstanceIds: [program.inId]
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     break;
-  case "value":
+  case "reboot":
+    ec2
+      .reboot({
+        InstanceIds: [program.inId]
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    break;
+  case "destroy":
+    ec2
+      .destroy({
+        InstanceIds: [program.inId]
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     break;
 
   default:

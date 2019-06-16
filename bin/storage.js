@@ -17,21 +17,48 @@ program
   .version("0.0.1")
   .option("-s, --storage <type>", "Storage")
   .option("-st, --service <type>", "Service")
+  .option("-f, --file <type>", "File")
   .option("-sn, --st-name <type>", "Storage Name")
   .parse(process.argv);
 
 switch (program.storage) {
   case "create":
-    console.log("create");
+    bucket
+      .create({
+        Bucket: program.stName,
+        ACL: "public-read"
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     break;
   case "list":
-    console.log("list");
+    bucket
+      .list({})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     break;
   case "upload":
     console.log("upload");
     break;
   case "delete":
-    console.log("delete");
+    bucket
+      .delete({
+        Bucket: program.stName
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     break;
   default:
     break;
