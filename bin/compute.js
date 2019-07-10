@@ -1,107 +1,81 @@
-#!/usr/bin/env node
-const program = require("commander");
-const nodeCloud = require("../../nodecloud/lib");
-const optionsProvider = {
-  overrideProviders: false
-};
+class Compute {
+  constructor(program, ncProviders, options) {
+    if (program.type == "AWS" || "aws") {
+      this._compute = ncProviders.aws.compute(options);
+    } else if (program.type == "GCP") {
+      this._compute = ncProviders.gcp.compute(options);
+    } else if (program.type == "Azure") {
+      this._compute = ncProviders.azure.compute(options);
+    } else {
+      throw new Error("Please specify a provider by flag -p --provider");
+    }
+  }
 
-const ncProviders = nodeCloud.getProviders(optionsProvider);
-const options = {
-  apiVersion: "2016-11-15",
-  region: "eu-central-1"
-};
-
-const ec2 = ncProviders.aws.compute(options);
-
-program
-  .version("0.0.1")
-  .option("-c, --compute <type>", "Compute")
-  .option("-r, --region <type>", "Region")
-  .option("-vn, --vm-name <type>", "VM name")
-  .option("-i, --in-id <type>", "Instance Id")
-  .parse(process.argv);
-
-switch (program.compute) {
-  case "create":
-    const params = {
-      ImageId: "ami-090f10efc254eaf55",
-      InstanceType: "t2.micro",
-      MinCount: 1,
-      MaxCount: 1
-    };
-    const instanceParams = {
-      Key: "Name",
-      Value: program.vmName
-    };
-
-    ec2
-      .create(params, instanceParams)
+  createInstance(options, cb) {
+    this._compute
+      .create(options)
       .then(res => {
-        console.log(`All done ! ${res}`);
+        cb(false, res);
       })
       .catch(err => {
-        console.log(`Oops something happened ${err}`);
+        cb(true, err);
       });
-    break;
-  case "list":
-    ec2
-      .list({ DryRun: false })
-      .then(res => {
-        console.log(res.Reservations);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    break;
-  case "stop":
-    ec2
-      .stop({
-        InstanceIds: [program.inId]
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    break;
-  case "start":
-    ec2
-      .start({
-        InstanceIds: [program.inId]
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    break;
-  case "reboot":
-    ec2
-      .reboot({
-        InstanceIds: [program.inId]
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    break;
-  case "destroy":
-    ec2
-      .destroy({
-        InstanceIds: [program.inId]
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    break;
+  }
 
-  default:
-    break;
+  listInstances(cb) {
+    this._compute
+      .list({})
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  stopInstance(options, cb) {
+    this._compute
+      .stop(options)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  startInstance(options, cb) {
+    this._compute
+      .start(options)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  rebootInstance(options, cb) {
+    this._compute
+      .reboot(options)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  destroyInstance(options, cb) {
+    this._compute
+      .destroy(options)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
 }
+
+module.exports = Compute;
