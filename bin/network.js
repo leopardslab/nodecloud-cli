@@ -2,9 +2,22 @@ class Network {
   constructor(program, nodecloud, options) {
     this._program = program;
     if (program.type == "AWS" || "aws") {
-      this._network = nodecloud.aws.dns(options);
+      if (program.service === "dns") {
+        console.log("DNS");
+        this._network = nodecloud.aws.dns(options);
+      } else if (program.service === "lb") {
+        console.log("load balancer");
+
+        this._network = nodecloud.aws.loadbalancer(options);
+      } else {
+        throw new Error("Please select a service type");
+      }
     } else if (program.type == "GCP" || "gcp") {
-      //this._network = nodecloud.gcp.dns(options);
+      if (program.service == "dns") {
+        this._network = nodecloud.gcp.dns(options);
+      } else {
+        throw new Error("Please select a service type");
+      }
       throw new Error("Network for GCP is not available");
     } else if (program.type == "Azure" || "azure") {
       //this._network = nodecloud.azure.network(options);
@@ -12,6 +25,61 @@ class Network {
     } else {
       throw new Error("Please specify a provider by flag -p --provider");
     }
+  }
+
+  create(option, cb) {
+    this._network
+      .create(option)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  delete(option, cb) {
+    this._network
+      .delete(option)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  list(option, cb) {
+    this._network
+      .list(option)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  addTags(option, cb) {
+    this._network
+      .addTags(option)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
+
+  removeTags(option, cb) {
+    this._network
+      .removeTags(option)
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
   }
 
   createZone(options, cb) {
