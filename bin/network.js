@@ -6,8 +6,6 @@ class Network {
         console.log("DNS");
         this._network = nodecloud.aws.dns(options);
       } else if (program.service === "lb") {
-        console.log("load balancer");
-
         this._network = nodecloud.aws.loadbalancer(options);
       } else {
         throw new Error("Please select a service type");
