@@ -8,15 +8,17 @@ program
   .version("0.0.1", "-v, --version")
   .option("-a, --about", "View about section of  NodeCloud CLI")
   .option("-i, --init", "Initialize provider")
-  .option("-c, --config", "Configure")
-  .option("-cm, --compute", "Create EC2 / Compute Engine / Virtual Machine")
-  .option("-st, --storage", "Create Storage S3 / Cloud Storage / Blob")
-  .option("-net, --network", "Create Balancers")
-  .option(
-    "-db, --database",
-    "Create Databases RDS / Cloud SQL / Azure Database"
-  )
-  .option("-au, --auth", "Create Identity and Access Management")
+  .option("-f, --config", "Configure")
+  .option("-c, --compute <type>", "Compute")
+  .option("-s, --storage <type>", "Storage")
+  .option("-d, --database <type>", "Database")
+  .option("-n, --network <type>", "Network")
+  .option("-vn, --vm-name <type>", "VM name")
+  .option("-id, --in-id <type>", "Instance Id")
+  .option("-sn, --st-name <type>", "Storage Name")
+  .option("-tb, --table <type>", "Table Name")
+  .option("-al, --at-def list", "Key definistion")
+  .option("-kl, --key-def list", "Key definistion")
   .parse(process.argv);
 
 if (program.about) {
@@ -42,3 +44,5 @@ if (program.about) {
 if (program.init) {
   Init();
 }
+
+console.log(" collect: %j", program.compute);

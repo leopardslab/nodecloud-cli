@@ -147,7 +147,7 @@ function providerSelection({ providers }) {
         provider: `{
             name: "aws",
             tag: "aws",
-            libName: nodeCloudAwsPlugin
+            plugin: nodeCloudAwsPlugin
           }`
       });
       break;
@@ -158,7 +158,7 @@ function providerSelection({ providers }) {
         provider: `{
             name: "google",
             tag: "google",
-            libName: nodeCloudAwsPlugin,
+            plugin: nodeCloudAwsPlugin,
             configFile: {
               projectId: "",
               keyFilename: ""
@@ -173,7 +173,7 @@ function providerSelection({ providers }) {
         provider: `{
             name: "azure",
             tag: "azure",
-            libName: nodeCloudAzurePlugin
+            plugin: nodeCloudAzurePlugin
           }`
       });
       break;
@@ -184,7 +184,7 @@ function providerSelection({ providers }) {
         provider: `{
             name: "aws",
             tag: "aws",
-            libName: nodeCloudAwsPlugin
+            plugin: nodeCloudAwsPlugin
           }`
       });
   }
