@@ -179,6 +179,86 @@ function Services(program, spinner) {
     let network = new Network(program, ncProviders, options);
     switch (program.network) {
       case "create":
+        network.create(
+          {
+            AvailabilityZones: ["eu-central-1b"],
+            Listeners: [
+              {
+                InstancePort: program.port,
+                InstanceProtocol: "HTTP",
+                LoadBalancerPort: program.port--,
+                Protocol: "HTTP"
+              }
+            ],
+            LoadBalancerName: program.name
+          },
+          (error, data) => {
+            if (error) {
+              console.log("error", data);
+            }
+            console.log(data);
+          }
+        );
+        break;
+      case "list":
+        network.list({}, (error, data) => {
+          if (error) {
+            console.log("error", data);
+          }
+          console.log(data);
+        });
+        break;
+      case "delete":
+        network.delete(
+          {
+            LoadBalancerName: program.name
+          },
+          (error, data) => {
+            if (error) {
+              console.log("error", data);
+            }
+            console.log(data);
+          }
+        );
+        break;
+      case "tag":
+        network.addTags(
+          {
+            LoadBalancerNames: [program.name],
+            Tags: [
+              {
+                Key: program.key,
+                Value: program.value
+              }
+            ]
+          },
+          (error, data) => {
+            if (error) {
+              console.log("error", data);
+            }
+            console.log(data);
+          }
+        );
+        break;
+      case "detag":
+        network.removeTags(
+          {
+            LoadBalancerNames: [program.name],
+            Tags: [
+              {
+                Key: program.key
+              }
+            ]
+          },
+          (error, data) => {
+            if (error) {
+              console.log("error", data);
+            }
+            console.log(data);
+          }
+        );
+        break;
+      case "createz":
         network.createZone(
           { CallerReference: program.cr, Name: program.name },
           (error, data) => {
@@ -189,7 +269,7 @@ function Services(program, spinner) {
           }
         );
         break;
-      case "list":
+      case "listz":
         network.listZones({}, (error, data) => {
           if (error) {
             console.log("error", data);
@@ -197,7 +277,7 @@ function Services(program, spinner) {
           console.log(data);
         });
         break;
-      case "delete":
+      case "deletez":
         network.deleteZone(
           { Id: `/hostedzone/${program.id}` },
           (error, data) => {
