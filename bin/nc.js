@@ -1,18 +1,27 @@
 #!/usr/bin/env node
 const program = require("commander");
-const figlet = require("figlet");
-const chalk = require("chalk");
+const Services = require("./services");
+const ora = require("ora");
 const Init = require("./init");
+
+const spinner = ora();
 
 program
   .version("0.0.1", "-v, --version")
   .option("-a, --about", "View about section of  NodeCloud CLI")
   .option("-i, --init", "Initialize provider")
-  .option("-f, --config", "Configure")
+  .option("-t, --type", "Type")
+  .option("-o, --config", "Configure NodeCloud")
   .option("-c, --compute <type>", "Compute")
   .option("-s, --storage <type>", "Storage")
   .option("-d, --database <type>", "Database")
   .option("-n, --network <type>", "Network")
+  .option("-g, --iam <type>", "IAM")
+  .option("-r, --cr <type>", "Caller Reference")
+  .option("-z, --name <type>", "Name")
+  .option("-h, --id <type>", "Id")
+  .option("-p, --gp-name <type>", "Group Name")
+  .option("-r, --ar-name <type>", "Amazon Resource Name")
   .option("-vn, --vm-name <type>", "VM name")
   .option("-id, --in-id <type>", "Instance Id")
   .option("-sn, --st-name <type>", "Storage Name")
@@ -21,28 +30,9 @@ program
   .option("-kl, --key-def list", "Key definistion")
   .parse(process.argv);
 
-if (program.about) {
-  figlet.text(
-    "NodeCloud CLI",
-    {
-      font: "slant",
-      horizontalLayout: "default",
-      verticalLayout: "default"
-    },
-    function(err, data) {
-      if (err) {
-        console.log("Something went wrong...");
-        console.dir(err);
-        return;
-      }
-      console.log(chalk.blue(data));
-      console.log(chalk.blue("© Copyright 2019 Cloudlibz."));
-    }
-  );
-}
-
 if (program.init) {
-  Init();
+  let Initialize = new Init(program, spinner);
+  Initialize.selectProvider();
 }
 
-console.log(" collect: %j", program.compute);
+Services(program, spinner);

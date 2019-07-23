@@ -1,92 +1,75 @@
-#!/usr/bin/env node
-const program = require("commander");
-const nodeCloud = require("../../nodecloud/lib");
-const optionsProvider = {
-  overrideProviders: false
-};
+class Iam {
+  constructor(program, nodecloud, options) {
+    if (program.type == "AWS" || "aws") {
+      this._iam = nodecloud.aws.iam(options);
+    } else if (program.type == "GCP") {
+      throw new Error(
+        "Identity & Access Management (IAM) for GCP is not available"
+      );
+      // this._iam = nodecloud.gcp.iam(options);
+    } else if (program.type == "Azure") {
+      //this._iam = nodecloud.azure.iam(options);
+      throw new Error(
+        "Identity & Access Management (IAM) for Azure is not available"
+      );
+    } else {
+      throw new Error("Please specify a provider by flag -p --provider");
+    }
+  }
 
-const ncProviders = nodeCloud.getProviders(optionsProvider);
-const options = {
-  apiVersion: "2016-11-15",
-  region: "eu-central-1"
-};
+  createGroup(options, cb) {
+    this._iam
+      .createGroup({
+        GroupName: program.gpName
+      })
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
 
-const iam = ncProviders.aws.iam(options);
+  deleteGroup(options, cb) {
+    this._iam
+      .deleteGroup({
+        GroupName: program.gpName
+      })
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
 
-program
-  .version("0.0.1")
-  .option("-g, --iam <type>", "IAM")
-  .option("-p, --gp-name <type>", "Group Name")
-  .option("-r, --ar-name <type>", "Amazon Resource Name")
-  .parse(process.argv);
+  attachResoure(options, cb) {
+    this._iam
+      .attachGroupPolicy({
+        GroupName: program.gpName,
+        PolicyArn: `arn:aws:iam::aws:policy/${program.arName}`
+      })
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
 
-switch (program.iam) {
-  case "create":
-    createGroup(program);
-    break;
-  case "delete":
-    deleteGroup(program);
-    break;
-  case "attach":
-    attachResoure(program);
-    break;
-  case "detach":
-    detachResource(program);
-    break;
-  default:
-    break;
+  detachResource(options, cb) {
+    this._iam
+      .detachGroupPolicy({
+        GroupName: program.gpName,
+        PolicyArn: `arn:aws:iam::aws:policy/${program.arName}`
+      })
+      .then(res => {
+        cb(false, res);
+      })
+      .catch(err => {
+        cb(true, err);
+      });
+  }
 }
 
-function createGroup(program) {
-  iam
-    .createGroup({
-      GroupName: program.gpName
-    })
-    .then(res => {
-      console.log(`All done ! ${JSON.stringify(res, null, 2)}`);
-    })
-    .catch(err => {
-      console.log(`Oops something happened ${err}`);
-    });
-}
-
-function deleteGroup(program) {
-  iam
-    .deleteGroup({
-      GroupName: program.gpName
-    })
-    .then(res => {
-      console.log(`All done ! ${JSON.stringify(res, null, 2)}`);
-    })
-    .catch(err => {
-      console.log(`Oops something happened ${err}`);
-    });
-}
-
-function attachResoure(program) {
-  iam
-    .attachGroupPolicy({
-      GroupName: program.gpName,
-      PolicyArn: `arn:aws:iam::aws:policy/${program.arName}`
-    })
-    .then(res => {
-      console.log(`All done ! ${JSON.stringify(res, null, 2)}`);
-    })
-    .catch(err => {
-      console.log(`Oops something happened ${err}`);
-    });
-}
-
-function detachResource(program) {
-  iam
-    .detachGroupPolicy({
-      GroupName: program.gpName,
-      PolicyArn: `arn:aws:iam::aws:policy/${program.arName}`
-    })
-    .then(res => {
-      console.log(`All done ! ${JSON.stringify(res, null, 2)}`);
-    })
-    .catch(err => {
-      console.log(`Oops something happened ${err}`);
-    });
-}
+module.exports = Iam;

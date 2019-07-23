@@ -1,20 +1,22 @@
-class Storage {
+class Network {
   constructor(program, nodecloud, options) {
     this._program = program;
     if (program.type == "AWS" || "aws") {
-      this._storage = nodecloud.aws.bucket(options);
+      this._network = nodecloud.aws.dns(options);
     } else if (program.type == "GCP" || "gcp") {
-      this._storage = nodecloud.gcp.storage(options);
+      //this._network = nodecloud.gcp.dns(options);
+      throw new Error("Network for GCP is not available");
     } else if (program.type == "Azure" || "azure") {
-      this._storage = nodecloud.azure.blob(options);
+      //this._network = nodecloud.azure.network(options);
+      throw new Error("Network for Azure is not available");
     } else {
       throw new Error("Please specify a provider by flag -p --provider");
     }
   }
 
-  createStorage(options, cb) {
-    this._storage
-      .create(options)
+  createZone(options, cb) {
+    this._network
+      .createZone(options)
       .then(res => {
         cb(false, res);
       })
@@ -23,9 +25,9 @@ class Storage {
       });
   }
 
-  listStorage(options, cb) {
-    this._storage
-      .list({})
+  deleteZone(options, cb) {
+    this._network
+      .deleteZone(options)
       .then(res => {
         cb(false, res);
       })
@@ -34,9 +36,9 @@ class Storage {
       });
   }
 
-  uploadToStorage(options, cb) {
-    this._storage
-      .create(options)
+  listZones(options, cb) {
+    this._network
+      .listZones(options)
       .then(res => {
         cb(false, res);
       })
@@ -45,9 +47,9 @@ class Storage {
       });
   }
 
-  deleteStorage(options, cb) {
-    this._storage
-      .delete(options)
+  changeRecordSets(options, cb) {
+    this._network
+      .changeRecordSets(options)
       .then(res => {
         cb(false, res);
       })
@@ -56,5 +58,4 @@ class Storage {
       });
   }
 }
-
-module.exports = Storage;
+module.exports = Network;
