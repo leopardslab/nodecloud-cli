@@ -12,6 +12,7 @@ const options = {
 };
 
 const dynamo = ncProviders.aws.nosql(options);
+const rdb = ncProviders.aws.rdbms(options);
 
 program
   .version("0.0.1")
@@ -24,45 +25,110 @@ program
 
 switch (program.database) {
   case "create":
-    dynamo
-      .createItem(params)
-      .then(res => {
-        console.log(`All done ! ${res}`);
-      })
-      .catch(err => {
-        console.log(`Oops something happened ${err}`);
-      });
+    createNewItem(program);
     break;
   case "query":
-    dynamo
-      .query(params)
-      .then(res => {
-        console.log(`All done ! ${res}`);
-      })
-      .catch(err => {
-        console.log(`Oops something happened ${err}`);
-      });
+    Query(program);
     break;
   case "delete":
-    dynamo
-      .deleteItem(params)
-      .then(res => {
-        console.log(`All done ! ${res}`);
-      })
-      .catch(err => {
-        console.log(`Oops something happened ${err}`);
-      });
+    Delete(program);
     break;
   case "update":
-    dynamo
-      .updateItem(params)
-      .then(res => {
-        console.log(`All done ! ${res}`);
-      })
-      .catch(err => {
-        console.log(`Oops something happened ${err}`);
-      });
+    updateItem(program);
     break;
   default:
     break;
+}
+
+function createNewItem(program) {
+  dynamo
+    .createItem({
+      TableName: program.table,
+      Item: {
+        id: {
+          S: "2"
+        },
+        title: {
+          S: "ICC Cricket World Cup "
+        },
+        year: {
+          S: "2019"
+        }
+      }
+    })
+    .then(res => {
+      console.log(`All done ! ${res}`);
+    })
+    .catch(err => {
+      console.log(`Oops something happened ${err}`);
+    });
+}
+
+function Delete(program) {
+  dynamo
+    .deleteItem({
+      TableName: program.table,
+      Key: {
+        id: {
+          S: "1"
+        }
+      }
+    })
+    .then(res => {
+      console.log(`All done ! ${res}`);
+    })
+    .catch(err => {
+      console.log(`Oops something happened ${err}`);
+    });
+}
+
+function Query(program) {
+  dynamo
+    .query({
+      TableName: program.table,
+      KeyConditionExpression: "id = :id",
+      ExpressionAttributeValues: {
+        ":id": {
+          S: "1"
+        }
+      }
+    })
+    .then(res => {
+      console.log(`All done ! ${JSON.stringify(res, null, 2)}`);
+    })
+    .catch(err => {
+      console.log(`Oops something happened ${err}`);
+    });
+}
+
+function updateItem(program) {
+  dynamo
+    .updateItem({
+      TableName: program.table,
+      ExpressionAttributeNames: {
+        "#T": "title",
+        "#Y": "year"
+      },
+      ExpressionAttributeValues: {
+        ":t": {
+          S: "ICC World T20 "
+        },
+        ":y": {
+          S: "2020"
+        }
+      },
+      Key: {
+        id: {
+          S: "1"
+        }
+      },
+      ReturnValues: "ALL_NEW",
+      UpdateExpression: "SET #T = :t, #Y = :y"
+    })
+    .then(res => {
+      console.log(`All done !  ${JSON.stringify(res, null, 2)}`);
+    })
+    .catch(err => {
+      console.log(`Oops something happened ${err}`);
+    });
 }
