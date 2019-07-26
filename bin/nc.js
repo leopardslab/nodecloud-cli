@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const program = require("commander");
-const Services = require("./services");
+const Services = require("../lib/services");
 const ora = require("ora");
-const Init = require("./init");
+const Init = require("../lib/init");
 
 const spinner = ora();
 
