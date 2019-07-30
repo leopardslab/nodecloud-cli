@@ -1,4 +1,4 @@
-# Nodecloud-cli
+# nodecloud-cli
 
 NodeCloud-cli is an unified command line interface for open cloud based on [NodeCloud](<[https://github.com/cloudlibz/nodecloud-cli](https://github.com/cloudlibz/nodecloud-cli)>). NodeCloud-cli supports cloud providers like AWS, Azure, GCP and many more.
 
