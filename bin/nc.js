@@ -2,7 +2,6 @@
 const program = require("commander");
 const Services = require("../lib/services");
 const ora = require("ora");
-const Init = require("../lib/init");
 
 const spinner = ora();
 
@@ -33,10 +32,5 @@ program
   .option("-al, --at-def list", "Key definistion")
   .option("-kl, --key-def list", "Key definistion")
   .parse(process.argv);
-
-if (program.init) {
-  let Initialize = new Init(program, spinner);
-  Initialize.selectProvider();
-}
 
 Services(program, spinner);
