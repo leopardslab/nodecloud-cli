@@ -9,8 +9,15 @@
     "test": "jest"
   },
   "repository": "https://github.com/cloudlibz/nodecloud-cli",
+  "keywords": [
+    "cli",
+    "nodecloud"
+  ],
   "author": "CloudLibz",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloudlibz/nodecloud-cli/issues"
+  },
   "bin": {
     "nc": "./bin/nc.js"
   },
