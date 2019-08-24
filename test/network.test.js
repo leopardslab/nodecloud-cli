@@ -14,26 +14,33 @@ describe("Network Services", () => {
     options
   );
   test("Create zones", () => {
-    network.createZone({}, data => {
-      expect(data).toMatch({ message: "success" });
+    network.createZone({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
     });
   });
 
   test("Delete zones", () => {
-    network.deleteZone({}, data => {
-      expect(data).toMatch({ message: "success" });
+    network.deleteZone({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
     });
   });
 
   test("List zones", () => {
-    network.listZones({}, data => {
-      expect(data).toMatch({ message: "success" });
+    network.listZones({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
     });
   });
 
   test("Change record sets", () => {
-    network.changeRecordSets({}, data => {
-      expect(data).toMatch({ message: "success" });
+    network.changeRecordSets({}, (error, data) => {
+      expect(data).toMatchObject({
+        ChangeInfo: {
+          Comment: "Web server for example.com",
+          Id: "/change/C2682N5HXP0BZ4",
+          Status: "PENDING",
+          SubmittedAt: "2019-08-12"
+        }
+      });
     });
   });
 });

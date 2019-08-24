@@ -10,26 +10,41 @@ const ncProviders = { aws: new Awsmock(options), gcp: "", azure: "" };
 describe("Storage Services", () => {
   let storage = new Storage({ type: "aws" }, ncProviders, options);
   test("Create storage", () => {
-    storage.createStorage({}, data => {
-      expect(data).toMatch({ message: "success" });
+    storage.createStorage({}, (error, data) => {
+      expect(data).toMatchObject({
+        Location: "http://examplebucket.s3.amazonaws.com/"
+      });
     });
   });
 
   test("Delete storage", () => {
-    storage.deleteStorage({}, data => {
-      expect(data).toMatch({ message: "success" });
+    storage.deleteStorage({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
     });
   });
 
   test("List storage", () => {
-    storage.listStorage({}, data => {
-      expect(data).toMatch({ message: "success" });
-    });
-  });
-
-  test("Upload to storage", () => {
-    storage.uploadToStorage({}, data => {
-      expect(data).toMatch({ message: "success" });
+    storage.listStorage({}, (error, data) => {
+      expect(data).toMatchObject({
+        Buckets: [
+          {
+            CreationDate: "2019-08-12",
+            Name: "examplebucket"
+          },
+          {
+            CreationDate: "2019-08-12",
+            Name: "examplebucket2"
+          },
+          {
+            CreationDate: "2019-08-12",
+            Name: "examplebucket3"
+          }
+        ],
+        Owner: {
+          DisplayName: "own-display-name",
+          ID: "examplee7a2f25102679df27bb0ae12b3f85be6f290b936c4393484be31"
+        }
+      });
     });
   });
 });

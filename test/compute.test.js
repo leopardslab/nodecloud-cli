@@ -24,15 +24,15 @@ describe("Compute Services", () => {
           Value: "Test"
         }
       },
-      data => {
-        expect(data).toMatch({ InstanceID: "i-028ed83d848a49343" });
+      (error, data) => {
+        expect(data).toMatchObject({ InstanceID: "i-028ed83d848a49343" });
       }
     );
   });
 
   test("List instances", () => {
-    compute.listInstances({}, data => {
-      expect(data).toMatch({
+    compute.listInstances({}, (error, data) => {
+      expect(data).toMatchObject({
         Instances: [
           { InstanceID: "i-028ed83d848a49343" },
           { InstanceID: "i-024ed86d748a48378" }
@@ -42,26 +42,26 @@ describe("Compute Services", () => {
   });
 
   test("Stop instance", () => {
-    compute.stopInstance({}, data => {
-      expect(data).toMatch({ InstanceID: "i-028ed83d848a49343" });
+    compute.stopInstance({}, (error, data) => {
+      expect(data).toMatchObject({ InstanceID: "i-028ed83d848a49343" });
     });
   });
 
   test("Start instance", () => {
-    compute.startInstance({}, data => {
-      expect(data).toMatch({ InstanceID: "i-028ed83d848a49343" });
+    compute.startInstance({}, (error, data) => {
+      expect(data).toMatchObject({ InstanceID: "i-028ed83d848a49343" });
     });
   });
 
   test("Reboot instance", () => {
-    compute.rebootInstance({}, data => {
-      expect(data).toMatch({ InstanceID: "i-028ed83d848a49343" });
+    compute.rebootInstance({}, (error, data) => {
+      expect(data).toMatchObject({ InstanceID: "i-028ed83d848a49343" });
     });
   });
 
   test("Destroy instance", () => {
-    compute.destroyInstance({}, data => {
-      expect(data).toMatch({ InstanceID: "i-028ed83d848a49343" });
+    compute.destroyInstance({}, (error, data) => {
+      expect(data).toMatchObject({ InstanceID: "i-028ed83d848a49343" });
     });
   });
 });
