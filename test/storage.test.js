@@ -5,31 +5,31 @@ const options = {
   apiVersion: "2016-11-15"
 };
 
-const ncProviders = new Awsmock();
+const ncProviders = { aws: new Awsmock(options), gcp: "", azure: "" };
 
 describe("Storage Services", () => {
   let storage = new Storage({ type: "aws" }, ncProviders, options);
   test("Create storage", () => {
-    storage.createStorage({}, () => {
-      expect(data).toMatch({ one: 1, two: 2 });
+    storage.createStorage({}, data => {
+      expect(data).toMatch({ message: "success" });
     });
   });
 
   test("Delete storage", () => {
-    storage.deleteStorage({}, () => {
-      expect(data).toMatch({ one: 1, two: 2 });
+    storage.deleteStorage({}, data => {
+      expect(data).toMatch({ message: "success" });
     });
   });
 
   test("List storage", () => {
-    storage.listStorage({}, () => {
-      expect(data).toMatch({ one: 1, two: 2 });
+    storage.listStorage({}, data => {
+      expect(data).toMatch({ message: "success" });
     });
   });
 
   test("Upload to storage", () => {
-    storage.uploadToStorage({}, () => {
-      expect(data).toMatch({ one: 1, two: 2 });
+    storage.uploadToStorage({}, data => {
+      expect(data).toMatch({ message: "success" });
     });
   });
 });

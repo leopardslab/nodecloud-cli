@@ -5,7 +5,7 @@ const options = {
   apiVersion: "2016-11-15"
 };
 
-const ncProviders = new Awsmock();
+const ncProviders = { aws: new Awsmock(options), gcp: "", azure: "" };
 
 describe("Network Services", () => {
   let network = new Network(
@@ -15,25 +15,25 @@ describe("Network Services", () => {
   );
   test("Create zones", () => {
     network.createZone({}, data => {
-      expect(data).toMatch({ one: 1, two: 2 });
+      expect(data).toMatch({ message: "success" });
     });
   });
 
   test("Delete zones", () => {
     network.deleteZone({}, data => {
-      expect(data).toMatch({ one: 1, two: 2 });
+      expect(data).toMatch({ message: "success" });
     });
   });
 
   test("List zones", () => {
     network.listZones({}, data => {
-      expect(data).toMatch({ one: 1, two: 2 });
+      expect(data).toMatch({ message: "success" });
     });
   });
 
   test("Change record sets", () => {
     network.changeRecordSets({}, data => {
-      expect(data).toMatch({ one: 1, two: 2 });
+      expect(data).toMatch({ message: "success" });
     });
   });
 });

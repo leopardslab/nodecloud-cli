@@ -5,7 +5,7 @@ const options = {
   apiVersion: "2016-11-15"
 };
 
-const ncProviders = { nodecloud: { aws: new Awsmock(), gcp: "", azure: "" } };
+const ncProviders = { aws: new Awsmock(options), gcp: "", azure: "" };
 
 describe("Compute Services", () => {
   let compute = new Compute({ type: "aws" }, ncProviders, options);
@@ -32,7 +32,12 @@ describe("Compute Services", () => {
 
   test("List instances", () => {
     compute.listInstances({}, data => {
-      expect(data).toMatch({ Instances: [] });
+      expect(data).toMatch({
+        Instances: [
+          { InstanceID: "i-028ed83d848a49343" },
+          { InstanceID: "i-024ed86d748a48378" }
+        ]
+      });
     });
   });
 
@@ -56,7 +61,7 @@ describe("Compute Services", () => {
 
   test("Destroy instance", () => {
     compute.destroyInstance({}, data => {
-      expect({ one: 1, two: 2 }).toMatch({ InstanceID: "i-028ed83d848a49343" });
+      expect(data).toMatch({ InstanceID: "i-028ed83d848a49343" });
     });
   });
 });
