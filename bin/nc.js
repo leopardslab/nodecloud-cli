@@ -2,7 +2,6 @@
 const program = require("commander");
 const Services = require("../lib/services");
 const ora = require("ora");
-const Init = require("../lib/init");
 
 const spinner = ora();
 
@@ -24,19 +23,8 @@ program
   .option("-y, --key <type>", "Key")
   .option("-u, --value <type>", "Value")
   .option("-h, --id <type>", "Id")
-  .option("-z, --gp-name <type>", "Group Name")
-  .option("-r, --ar-name <type>", "Amazon Resource Name")
-  .option("-vn, --vm-name <type>", "VM name")
-  .option("-id, --in-id <type>", "Instance Id")
-  .option("-sn, --st-name <type>", "Storage Name")
-  .option("-tb, --table <type>", "Table Name")
-  .option("-al, --at-def list", "Key definistion")
-  .option("-kl, --key-def list", "Key definistion")
+  .option("-m, --image <type>,", "Image")
+  .option("-n, --instance <type>,", "Instance")
   .parse(process.argv);
-
-if (program.init) {
-  let Initialize = new Init(program, spinner);
-  Initialize.selectProvider();
-}
 
 Services(program, spinner);
