@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 const program = require("commander");
 const Services = require("../lib/services");
+const { repository } = require("../package.json");
 const ora = require("ora");
 
 const spinner = ora();
 
 program
-  .version("0.0.1", "-v, --version")
+  .version(`0.0.1\nGitHub : ${repository}`, "-v, --version")
   .option("-a, --about", "View about section of  NodeCloud CLI")
   .option("-i, --init", "Initialize provider")
   .option("-t, --type <type>", "Type")
