@@ -195,26 +195,28 @@ class Awsmock {
         if (options === undefined) {
           reject({ message: "fail" });
         }
-        resolve({
-          Buckets: [
-            {
-              CreationDate: "2019-08-12",
-              Name: "examplebucket"
-            },
-            {
-              CreationDate: "2019-08-12",
-              Name: "examplebucket2"
-            },
-            {
-              CreationDate: "2019-08-12",
-              Name: "examplebucket3"
+        resolve(
+          JSON.stringify({
+            Buckets: [
+              {
+                CreationDate: "2019-08-12",
+                Name: "examplebucket"
+              },
+              {
+                CreationDate: "2019-08-12",
+                Name: "examplebucket2"
+              },
+              {
+                CreationDate: "2019-08-12",
+                Name: "examplebucket3"
+              }
+            ],
+            Owner: {
+              DisplayName: "own-display-name",
+              ID: "examplee7a2f25102679df27bb0ae12b3f85be6f290b936c4393484be31"
             }
-          ],
-          Owner: {
-            DisplayName: "own-display-name",
-            ID: "examplee7a2f25102679df27bb0ae12b3f85be6f290b936c4393484be31"
-          }
-        });
+          })
+        );
       });
     };
     let Delete = function(options) {
