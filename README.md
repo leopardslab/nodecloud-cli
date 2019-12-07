@@ -168,7 +168,7 @@ Informaton: blue text.
 
 Error: white text with red background.
 
-Warning: white text with yellow background.
+Warning: black text with yellow background.
 
 ## 📜 License
 
