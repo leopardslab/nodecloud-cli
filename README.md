@@ -159,22 +159,6 @@ $ yarn install
 ```
 $ yarn test
 ```
-## Log color schema
-
-Success: white text with green background.
-
-Error: white text with red background.
-
-
-# Log color schema
-
-Success: white text with green background.
-
-Informaton: blue text.
-
-Error: white text with red background.
-
-Warning: white text with yellow background.
 
 ## 📜 License
 
