@@ -13,9 +13,46 @@ describe("Network Services", () => {
     ncProviders,
     options
   );
+
+  test("Create", () => {
+    network.create({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
+  test("Delete", () => {
+    network.delete({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
+  test("List", () => {
+    network.list({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
+  test("Add tags", () => {
+    network.addTags({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
+  test("Remove tags", () => {
+    network.removeTags({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
   test("Create zones", () => {
     network.createZone({}, (error, data) => {
       expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
+  test("Create zones fail", () => {
+    network.createZone(undefined, (error, data) => {
+      expect(data).toMatchObject({ message: "fail" });
     });
   });
 
@@ -25,9 +62,21 @@ describe("Network Services", () => {
     });
   });
 
+  test("Delete zones fail", () => {
+    network.deleteZone(undefined, (error, data) => {
+      expect(data).toMatchObject({ message: "fail" });
+    });
+  });
+
   test("List zones", () => {
     network.listZones({}, (error, data) => {
       expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
+  test("List zones fail", () => {
+    network.listZones(undefined, (error, data) => {
+      expect(data).toMatchObject({ message: "fail" });
     });
   });
 

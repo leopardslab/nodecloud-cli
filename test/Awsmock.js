@@ -131,6 +131,51 @@ class Awsmock {
   }
 
   dns() {
+    let create = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let deleteFunction = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let list = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let addTags = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let removeTags = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
     let createZone = function(options) {
       return new Promise(function(resolve, reject) {
         if (options === undefined) {
@@ -172,6 +217,11 @@ class Awsmock {
     };
 
     return {
+      create: create,
+      deleteFunction: deleteFunction,
+      list: list,
+      addTags: addTags,
+      removeTags: removeTags,
       createZone: createZone,
       deleteZone: deleteZone,
       listZones: listZones,
