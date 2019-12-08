@@ -9,17 +9,12 @@ const ncProviders = { aws: new Awsmock(options), gcp: "", azure: "" };
 
 describe("Storage Services", () => {
   let storage = new Storage({ type: "aws" }, ncProviders, options);
+
   test("Create storage", () => {
     storage.createStorage({}, (error, data) => {
       expect(data).toMatchObject({
         Location: "http://examplebucket.s3.amazonaws.com/"
       });
-    });
-  });
-
-  test("Delete storage", () => {
-    storage.deleteStorage({}, (error, data) => {
-      expect(data).toMatchObject({ message: "success" });
     });
   });
 
@@ -45,6 +40,20 @@ describe("Storage Services", () => {
           ID: "examplee7a2f25102679df27bb0ae12b3f85be6f290b936c4393484be31"
         }
       });
+    });
+  });
+
+  test("Upload storage", () => {
+    storage.uploadToStorage({}, (error, data) => {
+      expect(data).toMatchObject({
+        Location: "http://examplebucket.s3.amazonaws.com/1b2cf535f277"
+      });
+    });
+  });
+
+  test("Delete storage", () => {
+    storage.deleteStorage({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
     });
   });
 });

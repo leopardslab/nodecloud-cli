@@ -218,7 +218,7 @@ class Awsmock {
 
     return {
       create: create,
-      deleteFunction: deleteFunction,
+      delete: deleteFunction,
       list: list,
       addTags: addTags,
       removeTags: removeTags,
@@ -240,6 +240,7 @@ class Awsmock {
         });
       });
     };
+
     let list = function(options) {
       return new Promise(function(resolve, reject) {
         if (options === undefined) {
@@ -267,7 +268,19 @@ class Awsmock {
         });
       });
     };
-    let Delete = function(options) {
+
+    let upload = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({
+          Location: "http://examplebucket.s3.amazonaws.com/1b2cf535f277"
+        });
+      });
+    };
+
+    let deleteFunction = function(options) {
       return new Promise(function(resolve, reject) {
         if (options === undefined) {
           reject({ message: "fail" });
@@ -279,7 +292,8 @@ class Awsmock {
     return {
       create: create,
       list: list,
-      delete: Delete
+      upload: upload,
+      delete: deleteFunction
     };
   }
 }
