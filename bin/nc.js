@@ -26,6 +26,7 @@ program
   .option("-m, --image <type>,", "Image")
   .option("-n, --instance <type>,", "Instance")
   .option("-rg, --region,", "Region")
+  .option("-av, --apiversion,", "API Version")
   .parse(process.argv);
 
 Services(program, spinner);
