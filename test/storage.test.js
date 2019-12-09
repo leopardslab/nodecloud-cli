@@ -23,6 +23,12 @@ describe("Storage Services", () => {
     });
   });
 
+  test("Upload storage", () => {
+    storage.uploadToStorage({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+
   test("List storage", () => {
     storage.listStorage({}, (error, data) => {
       expect(data).toMatchObject({
