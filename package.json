@@ -34,6 +34,7 @@
     "prettier": "^1.17.1"
   },
   "devDependencies": {
+    "cli-table": "^0.3.1",
     "husky": "^2.3.0",
     "jest": "^24.8.0",
     "pretty-quick": "^1.11.0"
