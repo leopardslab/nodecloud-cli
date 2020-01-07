@@ -1,0 +1,25 @@
+@font-face {
+    font-family: Product;
+    src: url(Product\ Sans\ Regular.ttf);
+}
+body{
+    margin-left:10%;
+    color:rgba(0, 0, 0, 0.749);
+    font-family: Product;
+}
+a{
+    color:rgb(0, 136, 255);
+    text-decoration: none;
+}
+.box{
+  width: 80vw;
+  border: 1px solid rgb(233, 233, 233);
+  margin: 20px 20px 20px 1px;
+  padding:1px;
+  border-radius: 3px;
+}
+.box p {
+    background:#f6f8fa;
+    padding:5px;
+    line-height: 3.5vh;
+}
