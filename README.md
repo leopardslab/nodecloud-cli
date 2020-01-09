@@ -1,7 +1,7 @@
 # nodecloud-cli
 
 nodecloud-cli is an unified command line interface for open cloud based on [nodecloud](https://github.com/cloudlibz/nodecloud). nodecloud-cli supports cloud providers like AWS, Azure, GCP and many more.
-Very Simple to Use
+Very Simple to Use.
 ## 🚀 Install
 
 Using npm
