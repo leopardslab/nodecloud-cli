@@ -13,6 +13,32 @@ describe("Network Services", () => {
     ncProviders,
     options
   );
+
+  test("Create networks", () => {
+    network.create({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+  test("Delete networks", () => {
+    network.delete({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+  test("List networks", () => {
+    network.list({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+  test("Add tags", () => {
+    network.addTags({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
+  test("Rmove tags", () => {
+    network.removeTags({}, (error, data) => {
+      expect(data).toMatchObject({ message: "success" });
+    });
+  });
   test("Create zones", () => {
     network.createZone({}, (error, data) => {
       expect(data).toMatchObject({ message: "success" });
