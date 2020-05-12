@@ -6,7 +6,7 @@ const ora = require("ora");
 const spinner = ora();
 
 program
-  .version("0.0.1", "-v, --version")
+  .option("-v, --version", "Check the version of NodeCloud CLI")
   .option("-a, --about", "View about section of  NodeCloud CLI")
   .option("-i, --init", "Initialize provider")
   .option("-t, --type <type>", "Type")
