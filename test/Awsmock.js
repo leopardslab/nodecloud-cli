@@ -131,6 +131,51 @@ class Awsmock {
   }
 
   dns() {
+    let create = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let deleteFunction = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let list = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let addTags = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
+    let removeTags = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({ message: "success" });
+      });
+    };
+
     let createZone = function(options) {
       return new Promise(function(resolve, reject) {
         if (options === undefined) {
@@ -172,6 +217,11 @@ class Awsmock {
     };
 
     return {
+      create: create,
+      delete: deleteFunction,
+      list: list,
+      addTags: addTags,
+      removeTags: removeTags,
       createZone: createZone,
       deleteZone: deleteZone,
       listZones: listZones,
@@ -190,6 +240,7 @@ class Awsmock {
         });
       });
     };
+
     let list = function(options) {
       return new Promise(function(resolve, reject) {
         if (options === undefined) {
@@ -217,7 +268,19 @@ class Awsmock {
         });
       });
     };
-    let Delete = function(options) {
+
+    let upload = function(options) {
+      return new Promise(function(resolve, reject) {
+        if (options === undefined) {
+          reject({ message: "fail" });
+        }
+        resolve({
+          Location: "http://examplebucket.s3.amazonaws.com/1b2cf535f277"
+        });
+      });
+    };
+
+    let deleteFunction = function(options) {
       return new Promise(function(resolve, reject) {
         if (options === undefined) {
           reject({ message: "fail" });
@@ -229,7 +292,8 @@ class Awsmock {
     return {
       create: create,
       list: list,
-      delete: Delete
+      upload: upload,
+      delete: deleteFunction
     };
   }
 }
