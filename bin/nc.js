@@ -20,6 +20,7 @@ program
   .option("-r, --cr <type>", "Caller Reference")
   .option("-z, --name <type>", "Name")
   .option("-p, --port <type>", "Port")
+  .option("--pretty", "Prettify JSON output for arrays")
   .option("-y, --key <type>", "Key")
   .option("-u, --value <type>", "Value")
   .option("-h, --id <type>", "Id")
