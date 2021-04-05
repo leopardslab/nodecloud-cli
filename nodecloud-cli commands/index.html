@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CLI Commands</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+</head>
+
+<body>
+    <h1> nodecloud-cli </h1>
+    <span>nodecloud-cli is an unified command line interface for open cloud based on <a href="https://github.com/cloudlibz/nodecloud">nodecloud</a>. nodecloud-cli supports cloud providers like AWS, Azure, GCP and many more.</span>
+    <h1>
+            🚀 Install
+    </h1> Using npm
+    <div class="box">
+        <p>
+            $ npm install -g nodecloud-cli
+        </p>
+    </div>
+    Using npm
+    <div class="box">
+        <p>
+            $ yarn global add nodecloud-cli
+        </p>
+    </div>
+    <h1>
+                📣 Usage
+        </h1> Initialize cli with selected cloud provider
+    <div class="box">
+        <p>
+            $ nc --init
+        </p>
+    </div>
+    <h2>
+                Compute 💻
+        </h2> Create virtual machine instance
+    <div class="box">
+        <p>
+            $ nc --compute create --type aws --vm-name="aws-ec2"
+        </p>
+    </div>
+    List all available virtual machine instance
+    <div class="box">
+        <p>
+            $ nc --compute list --type aws
+        </p>
+    </div>
+    Delete selected virtual machine instance
+    <div class="box">
+        <p>
+            $ nc --compute delete --type aws --in-id="Instance_ID"
+        </p>
+    </div>
+    Turn on virtual machine instance
+    <div class="box">
+        <p>
+            $ nc --compute start --type aws --in-id="Instance_ID"
+        </p>
+    </div>
+    Shut down virtual machine instance
+    <div class="box">
+        <p>
+            $ nc --compute stop --type aws --in-id="Instance_ID"
+        </p>
+    </div>
+    Reboot virtual machine instance
+    <div class="box">
+        <p>
+            $ nc --compute reboot --type aws --in-id="Instance_ID"
+        </p>
+    </div>
+    <h2>
+                                        Network 📡
+                                </h2> Creating load balancer
+    <div class="box">
+        <p>
+            $ nc --network create --type="aws" --service="lb" --name="myelb" --port="80"
+        </p>
+    </div>
+    Deleting load balancer
+    <div class="box">
+        <p>
+            $ nc --network delete --type="aws" --service="lb" --name="myelb"
+        </p>
+    </div>
+    List load balancer
+    <div class="box">
+        <p>
+            $ nc --network list --type="aws" --service="lb"
+        </p>
+    </div>
+    Add tag to load balancer
+    <div class="box">
+        <p>
+            $ nc --network tag --type="aws" --service="lb" --name="myelb" --key="Lv" --value="one"
+        </p>
+    </div>
+    Remove tag from load balancer
+    <div class="box">
+        <p>
+            $ nc --network detag --type="aws" --service="lb" --name="myelb" --key="Lv"
+        </p>
+    </div>
+    <h2>
+                                                            Storage 💾
+                                                    </h2> Creating Storage bucket
+    <div class="box">
+        <p>
+            $ nc --storage create --type aws --st-name="aws-ec2"
+        </p>
+    </div>
+    Deleting Storage bucket
+    <div class="box">
+        <p>
+            $ nc --storage delete --type aws --st-name="Instance_ID"
+        </p>
+    </div>
+    List all Storage buckets
+    <div class="box">
+        <p>
+            $ nc --storage list --type aws
+        </p>
+    </div>
+    Upload to Storage bucket
+    <div class="box">
+        <p>
+            $ nc --storage upload --type aws --st-name="Instance_ID" --file="file_path"
+        </p>
+    </div>
+    <h2>Identity Access Management 🔑</h2> Creating Group
+    <div class="box">
+        <p>
+            $ nc --iam create --type aws --gp-name="UserGroup01"
+        </p>
+    </div>
+    Deleting Group
+    <div class="box">
+        <p>
+            $ nc --iam delete --type aws --gp-name="UserGroup01"
+        </p>
+    </div>
+    Attach Resource
+    <div class="box">
+        <p>
+            $ nc --iam attach --type aws --gp-name`="UserGroup01"` --ar-name="resource01"
+        </p>
+    </div>
+    Detach Resource
+    <div class="box">
+        <p>
+            $ nc --iam detach --type aws --gp-name`="UserGroup01"` --ar-name="resource01"
+        </p>
+    </div>
+    <h1>💻 Development setup</h1>
+    <div class="box">
+        <p>
+            $ git clone https://github.com/cloudlibz/nodecloud-cli
+            <br> $ cd nodecloud-cli
+            <br> $ yarn install
+        </p>
+    </div>
+    <h1>✒️ Run unit tests</h1>
+    <div class="box">
+        <p>
+            $ yarn test
+        </p>
+    </div>
+    <h1>📜 License</h1> MIT
+    <BR>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</body>
+
+</html>
