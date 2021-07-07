@@ -25,6 +25,12 @@ program
   .option("-h, --id <type>", "Id")
   .option("-m, --image <type>,", "Image")
   .option("-n, --instance <type>,", "Instance")
+  .option("--vm-name <type>", "VM name")
+  .option("--in-id <type>", "Instance ID")
+  .option("--st-name <type>", "Storage name")
+  .option("--file <type>", "File path")
+  .option("--gp-name <type>", "IAM group name")
+  .option("--ar-name <type>", "IAM attached resource name")
   .parse(process.argv);
 
 Services(program, spinner);
