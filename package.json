@@ -23,11 +23,13 @@
   },
   "private": false,
   "dependencies": {
+    "@types/node-emoji": "^1.8.1",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "detect-installed": "^2.0.4",
     "figlet": "^1.2.3",
     "inquirer": "^6.4.1",
+    "node-emoji": "^1.10.0",
     "nodecloud": "^1.0.0-beta.1",
     "npm-programmatic": "^0.0.12",
     "ora": "^3.4.0"
