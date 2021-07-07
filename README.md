@@ -160,6 +160,13 @@ $ yarn install
 $ yarn test
 ```
 
+## Output Color Key
+
+**Success -** Green Background, White Text ✅
+**Warning -** Yellow Background, White Text ⚠️
+**Error -** Red Background, White Text 🛑
+**General -** White Background, Black Text ❕
+
 ## 📜 License
 
 MIT
