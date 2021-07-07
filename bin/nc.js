@@ -25,6 +25,7 @@ program
   .option("-h, --id <type>", "Id")
   .option("-m, --image <type>,", "Image")
   .option("-n, --instance <type>,", "Instance")
+  .option("-pr, --pretty,", "Display JSON output in a 'pretty' table structure")
   .parse(process.argv);
 
 Services(program, spinner);
