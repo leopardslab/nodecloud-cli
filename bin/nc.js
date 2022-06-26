@@ -2,12 +2,12 @@
 const program = require("commander");
 const Services = require("../lib/services");
 const ora = require("ora");
-
+const package = require("../package.json");
 const spinner = ora();
 
 program
   .version("0.0.1", "-v, --version")
-  .option("-a, --about", "View about section of  NodeCloud CLI")
+  .option("-a, --about", "View about section of NodeCloud CLI")
   .option("-i, --init", "Initialize provider")
   .option("-t, --type <type>", "Type")
   .option("-j, --service <type>", "Service")
@@ -25,6 +25,7 @@ program
   .option("-h, --id <type>", "Id")
   .option("-m, --image <type>,", "Image")
   .option("-n, --instance <type>,", "Instance")
+  .option("--table", "Print JSON data in table format")
   .parse(process.argv);
 
 Services(program, spinner);
