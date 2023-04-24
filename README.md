@@ -160,6 +160,16 @@ $ yarn install
 $ yarn test
 ```
 
+## Log color schema
+
+Success: white text with green background.
+
+Informaton: blue text.
+
+Error: white text with red background.
+
+Warning: black text with yellow background.
+
 ## 📜 License
 
 MIT
