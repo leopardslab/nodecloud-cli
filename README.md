@@ -4,6 +4,10 @@ nodecloud-cli is an unified command line interface for open cloud based on [node
 
 ## 🚀 Install
 
+>  If the output is RED color, It means there is an error
+
+>  If the output is GREEN color, It means the process was successful
+
 Using npm
 
 ```
